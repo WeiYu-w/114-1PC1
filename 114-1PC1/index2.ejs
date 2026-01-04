@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>貸款返還計算器 - 國泰人壽</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style2.css">
+</head>
+<body>
+    <div class="page-header">
+        <h1><i class="fas fa-calculator"></i> 貸款返還計算器</h1>
+    </div>
+
+    <div class="container">
+        <div class="form-section">
+            <h2><i class="fas fa-edit"></i> 貸款資訊輸入</h2>
+            <form id="loanForm">
+                <div class="form-group">
+                    <label for="loanAmount">
+                        <i class="fas fa-dollar-sign"></i> 貸款金額（元）
+                    </label>
+                    <input
+                        type="number"
+                        id="loanAmount"
+                        placeholder="請輸入貸款金額，例如：1000000"
+                        min="0"
+                        step="1000"
+                    >
+                    <div class="input-hint">輸入您需要申請的貸款總額</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="interestRate">
+                        <i class="fas fa-percentage"></i> 年利率（%）
+                    </label>
+                    <input
+                        type="number"
+                        id="interestRate"
+                        placeholder="請輸入年利率，例如：2.5"
+                        min="0"
+                        step="0.01"
+                    >
+                    <div class="input-hint">輸入貸款方案的年利率</div>
+                </div>
+
+                <div class="form-group">
+                    <label for="loanTerm">
+                        <i class="fas fa-calendar-alt"></i> 貸款期限（年）
+                    </label>
+                    <input
+                        type="number"
+                        id="loanTerm"
+                        placeholder="請輸入貸款年數，例如：20"
+                        min="1"
+                        step="1"
+                    >
+                    <div class="input-hint">輸入您的還款期限</div>
+                </div>
+
+                <div class="btn-container">
+                    <button type="button" id="calculateBtn" class="btn-calculate">
+                        <i class="fas fa-calculator"></i> 立即計算
+                    </button>
+                    <button type="button" id="resetBtn" class="btn-reset">
+                        <i class="fas fa-redo"></i> 重新輸入
+                    </button>
+                </div>
+            </form>
+        </div>
+
+        <div class="result-section">
+            <div id="result" class="result">
+                <h2><i class="fas fa-chart-bar"></i> 計算結果明細</h2>
+                <div class="result-item">
+                    <span class="result-label"><i class="fas fa-calendar-check"></i> 每月應繳金額</span>
+                    <span class="result-value" id="monthlyPayment">NT$ 0</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label"><i class="fas fa-coins"></i> 總繳款金額</span>
+                    <span class="result-value" id="totalPayment">NT$ 0</span>
+                </div>
+                <div class="result-item">
+                    <span class="result-label"><i class="fas fa-chart-line"></i> 總利息費用</span>
+                    <span class="result-value" id="totalInterest">NT$ 0</span>
+                </div>
+            </div>
+            <div class="result-placeholder">
+                <i class="fas fa-chart-pie"></i>
+                <p>請輸入貸款資訊並點擊「立即計算」</p>
+                <p class="placeholder-hint">計算結果將顯示在此處</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

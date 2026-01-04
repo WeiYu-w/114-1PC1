@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>貸款返還計算器</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="container">
+        <h1><i class="fas fa-hand-holding-usd"></i> 貸款返還計算器</h1>
+
+        <form id="loanForm">
+            <div class="form-group">
+                <label for="loanAmount">貸款金額（元）</label>
+                <input
+                    type="number"
+                    id="loanAmount"
+                    placeholder="例如：1000000"
+                    min="0"
+                    step="1000"
+                >
+                <div class="input-hint">請輸入您要貸款的總金額</div>
+            </div>
+
+            <div class="form-group">
+                <label for="interestRate">年利率（%）</label>
+                <input
+                    type="number"
+                    id="interestRate"
+                    placeholder="例如：2.5"
+                    min="0"
+                    step="0.01"
+                >
+                <div class="input-hint">請輸入年利率百分比</div>
+            </div>
+
+            <div class="form-group">
+                <label for="loanTerm">貸款期限（年）</label>
+                <input
+                    type="number"
+                    id="loanTerm"
+                    placeholder="例如：20"
+                    min="1"
+                    step="1"
+                >
+                <div class="input-hint">請輸入貸款年限</div>
+            </div>
+
+            <div class="btn-container">
+                <button type="button" id="calculateBtn" class="btn-calculate">計算</button>
+                <button type="button" id="resetBtn" class="btn-reset">重置</button>
+            </div>
+        </form>
+
+        <div id="result" class="result">
+            <h2><i class="fas fa-chart-line"></i> 計算結果</h2>
+            <div class="result-item">
+                <span class="result-label">每月還款金額：</span>
+                <span class="result-value" id="monthlyPayment">NT$ 0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">總還款金額：</span>
+                <span class="result-value" id="totalPayment">NT$ 0</span>
+            </div>
+            <div class="result-item">
+                <span class="result-label">總利息支出：</span>
+                <span class="result-value" id="totalInterest">NT$ 0</span>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

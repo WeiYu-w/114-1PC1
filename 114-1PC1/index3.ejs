@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="zh-TW">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>404 - 查無網頁</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link rel="stylesheet" href="style3.css">
+</head>
+<body>
+    <!-- 背景裝飾 -->
+    <div class="background-shapes">
+        <div class="shape shape1"></div>
+        <div class="shape shape2"></div>
+        <div class="shape shape3"></div>
+    </div>
+
+    <div class="error-container">
+        <div class="error-icon">
+            <i class="fas fa-exclamation-triangle"></i>
+        </div>
+
+        <div class="error-code">404</div>
+
+        <h1 class="error-title">查無此網頁</h1>
+
+        <p class="error-message">
+            抱歉，您所訪問的頁面不存在或已被移除
+        </p>
+
+        <p class="error-submessage">
+            The page you are looking for might have been removed, had its name changed, or is temporarily unavailable.
+        </p>
+
+        <div class="error-actions">
+            <a href="/" class="btn btn-primary">
+                <i class="fas fa-home"></i>
+                返回首頁
+            </a>
+            <a href="/calculator" class="btn btn-secondary">
+                <i class="fas fa-calculator"></i>
+                貸款計算器
+            </a>
+        </div>
+
+        <div class="error-suggestions">
+            <h3><i class="fas fa-lightbulb"></i> 可能的原因：</h3>
+            <ul>
+                <li>網址輸入錯誤，請檢查拼字</li>
+                <li>該頁面已經被刪除或移動</li>
+                <li>連結已過期或失效</li>
+                <li>您沒有權限訪問此頁面</li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        // 自動記錄錯誤訪問
+        console.log('404 Error: Page not found - ' + window.location.href);
+
+        // 可選：3秒後自動返回首頁（取消註解以啟用）
+        // setTimeout(() => {
+        //     window.location.href = 'index.html';
+        // }, 3000);
+    </script>
+</body>
+</html>
