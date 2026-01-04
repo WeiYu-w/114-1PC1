@@ -15,11 +15,12 @@ const contentTypes = {
   ".ico": "image/x-icon",
 };
 
-// 根據副檔名回傳 MIME 類型
+// 立 getContentType(extname) 函數，根據副檔名回傳對應的 MIME 類型
 export function getContentType(extname) {
   // 允許傳 ".css" 或 "style.css" 兩種都可
   const ext = extname.startsWith(".") ? extname : path.extname(extname);
   return contentTypes[ext] || "text/plain; charset=utf-8";
 }
 
+//使用 ES6 的 export 匯出功能
 export { contentTypes };
