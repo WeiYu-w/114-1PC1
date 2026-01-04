@@ -2,7 +2,7 @@ import http from "http";
 import path from "path";
 import { fileURLToPath } from "url";
 
-import { renderTemplate } from "./utils/templateRenderer.js";
+import { renderTemplate, render404 } from "./utils/templateRenderer.js";
 import { handleStaticFile } from "./utils/staticFileHandler.js";
 
 // 取得目前檔案所在資料夾（ESM 沒有 __dirname，要自己做）
@@ -33,8 +33,11 @@ function safeResolve(requestUrlPath) {
 
 http
   .createServer(async (req, res) => {
-    // 主檔案只做路由分派
-    switch (req.url) {
+    // ✅ 建議：先取純路徑（避免 querystring 影響 switch）
+    const urlPath = (req.url || "/").split("?")[0];
+
+    // 主檔案只做路由分派（題目要求保留 switch）
+    switch (urlPath) {
       case "/":
         // / → 渲染 index.ejs
         await renderTemplate(res, path.join(baseDir, "index.ejs"), {
@@ -48,12 +51,11 @@ http
         break;
 
       default: {
-        // 其他路徑 → 當作靜態檔案處理
-        const fullPath = safeResolve(req.url);
+        // 其他路徑 → 嘗試作為靜態檔案處理
+        const fullPath = safeResolve(urlPath);
 
         if (!fullPath) {
-          // 被判定為不安全路徑，直接 404
-          const { render404 } = await import("./utils/templateRenderer.js");
+          // 路徑不安全（例如 /../）→ 直接 404
           await render404(res);
           return;
         }

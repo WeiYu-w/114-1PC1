@@ -1,30 +1,66 @@
+// ==========================================
+// 模板渲染模組
+// 檔案位置：utils/templateRenderer.js
+// 功能：
+// 1. 抽取 EJS 模板渲染邏輯
+// 2. 提供共用的模板渲染函式
+// 3. 專門處理 404 與 500 錯誤頁面
+// ==========================================
+
 import fs from "fs/promises";
 import ejs from "ejs";
 
 /**
- * 渲染 EJS 模板
- * res : HTTP 回應物件
- * filePath : EJS 檔案路徑（例如 "./index.ejs"）
- * data : 傳遞給模板的資料（預設為空物件）
+ * renderTemplate
+ * --------------------------
+ * 渲染 EJS 模板的共用函式
+ *
+ * @param {ServerResponse} res
+ *        HTTP 回應物件
+ *
+ * @param {string} filePath
+ *        EJS 檔案路徑（例如 "./index.ejs"）
+ *
+ * @param {object} data
+ *        傳遞給模板的資料（預設為空物件）
  */
-export async function renderTemplate(res, filePath, data = {}, statusCode = 200) {
+export async function renderTemplate(res, filePath, data = {}) {
   try {
+    // 讀取 EJS 模板檔案
     const template = await fs.readFile(filePath, "utf8");
+
+    // 使用 EJS 將模板與資料渲染成 HTML
     const html = ejs.render(template, data);
 
-    res.writeHead(statusCode, { "Content-Type": "text/html; charset=utf-8" });
+    // 回傳成功結果
+    res.writeHead(200, { "Content-Type": "text/html; charset=utf-8" });
     res.end(html);
   } catch (err) {
-    // 讀檔或 render 出錯 → 500
+    // 錯誤處理：檔案讀取或渲染失敗 → 500
     res.writeHead(500, { "Content-Type": "text/html; charset=utf-8" });
-    res.end(`500 - 伺服器錯誤：無法讀取/渲染模板<br>${err.message}`);
+    res.end(`500 - 伺服器錯誤：無法讀取模板檔案<br>${err.message}`);
   }
 }
 
 /**
+ * render404
+ * --------------------------
  * 專門處理 404 錯誤頁面
+ *
+ * @param {ServerResponse} res
+ *        HTTP 回應物件
  */
 export async function render404(res) {
-  // 你原本 404 用 index3.ejs
-  await renderTemplate(res, "./index3.ejs", {}, 404);
+  // 使用 index3.ejs 作為 404 頁面
+  try {
+    const template = await fs.readFile("./index3.ejs", "utf8");
+    const html = ejs.render(template);
+
+    res.writeHead(404, { "Content-Type": "text/html; charset=utf-8" });
+    res.end(html);
+  } catch (err) {
+    // 若 404 頁本身讀取失敗，仍回傳 500
+    res.writeHead(500, { "Content-Type": "text/plain; charset=utf-8" });
+    res.end("500 - 伺服器錯誤：無法顯示 404 頁面");
+  }
 }
