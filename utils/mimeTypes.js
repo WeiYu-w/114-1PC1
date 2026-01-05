@@ -1,6 +1,15 @@
+// ==========================================
+// MIME 類型模組
+// 檔案位置：utils/mimeTypes.js
+// 功能：
+// 1. 抽取原本 2b.js 中的 contentTypes 物件
+// 2. 根據副檔名回傳正確的 MIME 類型
+// 3. 使用 ES6 export 匯出供其他模組使用
+// ==========================================
+
 import path from "path";
 
-// 抽出 2b.js 的 contentTypes
+// 原本在 2b.js 中的 contentTypes 物件
 const contentTypes = {
   ".html": "text/html; charset=utf-8",
   ".ejs": "text/html; charset=utf-8",
@@ -15,12 +24,25 @@ const contentTypes = {
   ".ico": "image/x-icon",
 };
 
-// 立 getContentType(extname) 函數，根據副檔名回傳對應的 MIME 類型
+/**
+ * getContentType
+ * --------------------------
+ * 根據副檔名回傳對應的 MIME 類型
+ *
+ * @param {string} extname
+ *        副檔名（例如 ".css"）或檔名（例如 "style.css"）
+ *
+ * @returns {string}
+ *        對應的 Content-Type，若找不到則回傳 text/plain
+ */
 export function getContentType(extname) {
-  // 允許傳 ".css" 或 "style.css" 兩種都可
-  const ext = extname.startsWith(".") ? extname : path.extname(extname);
+  // 若傳入的是檔名，先取出副檔名
+  const ext = extname.startsWith(".")
+    ? extname
+    : path.extname(extname);
+
   return contentTypes[ext] || "text/plain; charset=utf-8";
 }
 
-//使用 ES6 的 export 匯出功能
+// （可選）若其他模組需要整個對照表，也可以匯出
 export { contentTypes };
